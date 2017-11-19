@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+		<title>Alarm Clock</title>
+		<style type="text/css">
+		body{
+			background: url(http://eskipaper.com/images/light-background-wallpaper-1.jpg);
+			background-repeat: no-repeat;
+		}
+		.clock{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translateX(-50%) translateY(-90%);
+			color: #000;
+			font-family: 'Slabo 27px', serif;
+			font-size: 100px;
+			border-radius: 20px
+			padding: 0px 5px 0px 5px;
+		}
+		button {
+			position: absolute;
+			top: 55%;
+			left: 35%;	
+			font-style: Arial;
+			font-size: 20pt;	
+		}
+		#alarm {
+			position: absolute;
+			top: 55%;
+			left: 48%;	
+			font-style: Helvetica;
+			font-size: 20pt;	
+		}
+		</style>
+	</head>
+	<body>
+		<div id="displayClock" class="clock"></div>
+		<button id="createAlarm" onclick="createAlarm()">Create Alarm</button>
+		<input type="text" id="alarm">
+		<script type="text/javascript">
+			
+			
+			function showTime(){
+				var date = new Date();
+				var h = date.getHours();
+				var m = date.getMinutes(); 
+				var s = date.getSeconds();
+				var session = "AM";
+
+				if(h == 0){
+					h = 12;
+				}
+
+				if(h > 12){
+					h = h - 12;
+					session = "PM";
+				}
+
+				if (h < 10) {
+					h = "0" + h;
+				}
+
+				if (m < 10) {
+					m = "0" + m;
+				}
+
+				if (s < 10) {
+					s = "0" + s;
+				}
+
+				time = h + ":" + m + ":" + s + " " + session;
+				document.getElementById("displayClock").innerText = time;
+				document.getElementById("displayClock").textContent = time;
+
+				setTimeout(showTime, 1000);
+				return time;
+			}
+
+			showTime();
+			
+			var beep = new Audio();
+			beep.src = "alarm.mp3";
+			function createAlarm(){
+				if (time == document.getElementById('alarm').value){
+					beep.play();
+					console.log('Worked!');
+				}
+				else {
+					console.log('fail');
+				}
+				setInterval(createAlarm, 1000);
+			}
+			showTime();
+
+		</script>
+	</body>
+</html>
